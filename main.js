@@ -1,37 +1,33 @@
-const app = document.getElementsByClassName('weather-container');
-const temp = document.getElementsByClassName('temp');
-const date = document.getElementsByClassName('date');
-const time = document.getElementsByClassName('time');
-const weatherType = document.getElementsByClassName('weather-type');
-const city = document.getElementsByClassName('city-name');
-const icon = document.getElementsByClassName('weather-icon')
-const cloud = document.getElementsByClassName('cloud');
-const humidity = document.getElementsByClassName('humidity');
-const wind = document.getElementsByClassName('wind');
-const locationSearch = document.getElementById('locationSearch');
-const search = document.getElementsByClassName('search');
-const submitButton = document.getElementsByClassName('submit');
-const cities = document.getElementsByClassName('city');
-
-let weather = {
-    "apiKey": "ab00b2b0126131b17e22c3ac0b4048a9"
-}
+const app = document.querySelector('.weather-container');
+const dateOutput = document.querySelector('.date');
+const timeOutput = document.querySelector('.time');
+const weatherType = document.querySelector('.weather-type');
+const cityName = document.querySelector('.city-name');
+const icon = document.querySelector('.weather-icon')
+const cloud = document.querySelector('.cloud');
+const humidity = document.querySelector('.humidity');
+const wind = document.querySelector('.wind');
+const temp = document.querySelector('.temp');
+const submitButton = document.querySelector('.submit');
+const cities = document.querySelectorAll('.city');
 
 let cityInput = "London";
-
-cities.forEach((city) => {
-    city.addEventListener('click', (e) => {
+cities.forEach((cityname) => {
+    cityname.addEventListener('click', (e) => {
         cityInput = e.target.innerHTML;
-        fetchWeatherData();
+        getWeatherData();
     })
 })
 
+const locationSearch = document.querySelector('#locationSearch');
+const search = document.querySelector('.search');
+
 locationSearch.addEventListener('submit', (e) => {
     if(search.value.length == 0) {
-        alert('Please type in a city name');}
+        alert('City not written');}
         else {
-            city = search.value;
-            fetchWeatherData();
+            cityInput = search.value;
+            getWeatherData();
             search.value = "";
         }
         e.preventDefault();
@@ -39,26 +35,62 @@ locationSearch.addEventListener('submit', (e) => {
 )
 
 function dayOfTheWeek(day,month,year) {
-    const weekDay =  [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-    ];
-    return weekDay[new Date(`${day}/${month}/${year}`).getDay()]
+    const weekDay =  ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    return weekDay[new Date(`${year}/${month}/${day}`).getDay()]
 }
 
-console.log(locationSearch);
-
-function fetchWeatherData(){
-    fetch(`http://api.weatherapi.com/v1/current.json?key=19bc6f73f36c493c85654214222210=${cityInput}`)
+function getWeatherData(){
+    fetch(`http://api.weatherapi.com/v1/current.json?key=19bc6f73f36c493c85654214222210&q=${cityInput}`)
     .then(response => response.json())
     .then(data => {
         console.log(data);
+    
 
-        temp.innerHTML
+        temp.innerHTML = data.current.temp_c + "&deg";
+        weatherType.innerHTML = data.current.condition.text;
+        dateOutput.innerHTML = data.location.localtime;
+        cityName.innerHTML = data.location.name;
+        cloud.innerHTML = data.current.cloud + "%";
+        humidity.innerHTML = data.current.humidity + "%";
+        wind.innerHTML = data.current.wind_kph + "km/h"
+
+
+        const condition = data.current.condition.text;
+
+        if (data.current.is_day == 1){
+            if (condition == "Sunny") {
+            app.style.backgroundImage = `url(./images/day/sunny.jpeg)`;
+            icon.style.src = `url(./Icons/day/113.png)`
+            }
+            else if (condition == "Partly cloudy" || condition == "Cloudy" || condition == "Partly cloudy" || condition == "Overcast") {
+            app.style.backgroundImage = `url(./images/day/cloudy.jpeg)`;
+            icon.src = `url(./Icons/day/116.png)`
+            } 
+            else if (condition == "Patchy rain possible" || condition == "Patchy light rain" || condition == "Light rain" || condition == "Moderate rain at times" || condition == "Moderate rain" || condition == "Heavy rain" || condition == "Light rain shower") {
+            app.style.backgroundImage = `url(./images/day/rain.jpeg)`;
+            } 
+            else if (condition == "Patchy snow possible" || condition == "Blowing snow" || condition == "Light snow" || condition == "Moderate rain at times" || condition == "Moderate snow" || condition == "Heavy snow" || condition == "Light snow showers" || condition == "Moderate or heavy snow showers") {
+            app.style.backgroundImage = `url(./images/day/snow.jpeg)`;
+            } 
+        }
+
+        if (data.current.is_day != 1) {
+            if (condition == "Clear") {
+            app.style.backgroundImage = `url(./images/night/clear.jpeg)`
+            }
+            if (condition == "Partly cloudy" || condition == "Cloudy" || condition == "Partly cloudy" || condition == "Overcast") {
+            app.style.backgroundImage = `url(./images/night/cloudy.jpeg)`;
+            } 
+            if (condition == "Patchy rain possible" || condition == "Patchy light rain" || condition == "Light rain" || condition == "Moderate rain at times" || condition == "Moderate rain" || condition == "Heavy rain" || condition == "Light rain shower") {
+            app.style.backgroundImage = `url(./images/night/rain.jpeg)`;
+            } 
+            if (condition == "Patchy snow possible" || condition == "Blowing snow" || condition == "Light snow" || condition == "Moderate rain at times" || condition == "Moderate snow" || condition == "Heavy snow" || condition == "Light snow showers" || condition == "Moderate or heavy snow showers") {
+            app.style.backgroundImage = `url(./images/night/snow.jpeg)`;
+            } 
+        }
     })
+    
 }
+
+
+
