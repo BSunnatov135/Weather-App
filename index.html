@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="weather-container">
+        <div class="weather-wrapper">
+            <h3 class="name">the weather</h3>
+            <div>
+
+                <h1 class="temp">26&deg</h1>
+                <div class="city-wrapper">
+                    <h3 class="city-name">London</h3>
+                    <small class="date-time"> 
+                        <span class="time">10:36</span> - <span class="date">Tuesday 22 Oct</span>
+                    </small>
+                </div>
+                <div class="weather">
+                    <img src="./Icons/day/113.png" class="weather-icon" width="50" height="50">
+                    <span class="weather-type">Sunny</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <form id="locationSearch">
+                <input type="text" class="search" placeholder="Another location">
+                <button type="submit" class="submit">
+                    <svg fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="50px" height="50px"><path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"/></svg>
+                </button>
+            </form>
+            <ul class="cities">
+                <li class="city">Birmingham</li>
+                <li class="city">Manchester</li>
+                <li class="city">New York</li>
+                <li class="city">California</li>
+            </ul>
+            <h4>Weather Detaile</h4>
+            <ul class="details">
+                <li><span>Cloudy</span><span class="cloud">12%</span></li>
+                <li><span>Humidity</span><span class="humidity">78%</span></li>
+                <li><span>Wind</span><span class="wind">1km/h</span></li>
+                <li><span>Rain</span><span class="rain">0mm</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
