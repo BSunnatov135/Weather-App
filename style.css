@@ -9,7 +9,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     color: #ffffff;
-    opacity: 1;
+    opacity: 1; 
 }
 .weather-wrapper {
     display: flex;
