@@ -8,6 +8,7 @@ const cloud = document.querySelector('.cloud');
 const humidity = document.querySelector('.humidity');
 const wind = document.querySelector('.wind');
 const temp = document.querySelector('.temp');
+const rain = document.querySelector('.rain');
 const submitButton = document.querySelector('.submit');
 const cities = document.querySelectorAll('.city');
 
@@ -40,7 +41,7 @@ function dayOfTheWeek(day,month,year) {
 }
 
 function getWeatherData(){
-    fetch(`http://api.weatherapi.com/v1/current.json?key=19bc6f73f36c493c85654214222210&q=${cityInput}`)
+    fetch(`http://api.weatherapi.com/v1/current.json?key=8cb1ebeba6a441ec9cb155211220811 &q=${cityInput}`)
     .then(response => response.json())
     .then(data => {
         console.log(data);
@@ -53,18 +54,17 @@ function getWeatherData(){
         cloud.innerHTML = data.current.cloud + "%";
         humidity.innerHTML = data.current.humidity + "%";
         wind.innerHTML = data.current.wind_kph + "km/h"
-
+        rain.innerHTML = data.current.precip_mm + "mm"
+        
 
         const condition = data.current.condition.text;
 
         if (data.current.is_day == 1){
             if (condition == "Sunny") {
             app.style.backgroundImage = `url(./images/day/sunny.jpeg)`;
-            icon.style.src = `url(./Icons/day/113.png)`
             }
             else if (condition == "Partly cloudy" || condition == "Cloudy" || condition == "Partly cloudy" || condition == "Overcast") {
             app.style.backgroundImage = `url(./images/day/cloudy.jpeg)`;
-            icon.src = `url(./Icons/day/116.png)`
             } 
             else if (condition == "Patchy rain possible" || condition == "Patchy light rain" || condition == "Light rain" || condition == "Moderate rain at times" || condition == "Moderate rain" || condition == "Heavy rain" || condition == "Light rain shower") {
             app.style.backgroundImage = `url(./images/day/rain.jpeg)`;
